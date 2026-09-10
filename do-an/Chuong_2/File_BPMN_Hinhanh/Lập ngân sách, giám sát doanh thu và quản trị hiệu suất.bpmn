@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="18.28.0">
+  <bpmn:collaboration id="Collaboration_1">
+    <bpmn:participant id="Participant_1" name="MGT-02: Lập ngân sách, giám sát doanh thu và quản trị hiệu suất" processRef="Process_MGT02" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_MGT02" isExecutable="true">
+    <bpmn:laneSet id="LaneSet_1">
+      <bpmn:lane id="Lane_TC" name="Bộ phận Tài chính – Kế toán">
+        <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_m1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T3</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T4b</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T6</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_m4</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T9</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_1</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_TK" name="Trưởng các khối/phòng ban">
+        <bpmn:flowNodeRef>AND_split</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T2a</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>AND_join</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T7</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T3b</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_CS" name="Quản lý cửa hàng &#38; kênh trực tuyến">
+        <bpmn:flowNodeRef>T2b</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T5a</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_ERP" name="Hệ thống POS/ERP/BI">
+        <bpmn:flowNodeRef>AND_split2</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>AND_join2</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T5b</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_BDH" name="Ban điều hành">
+        <bpmn:flowNodeRef>GW_m2</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T4</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW2</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW3</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW4</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T8</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="StartEvent_1" name="Kế hoạch kinh doanh được phê duyệt">
+      <bpmn:outgoing>Flow_Start_T1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="T1" name="Tiếp nhận mục tiêu, chỉ tiêu từ kế hoạch đã duyệt">
+      <bpmn:incoming>Flow_Start_T1</bpmn:incoming>
+      <bpmn:outgoing>Flow_T1_AND_split</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:parallelGateway id="AND_split" name="Phân nhánh song song">
+      <bpmn:incoming>Flow_T1_AND_split</bpmn:incoming>
+      <bpmn:outgoing>Flow_AND_split_T2a</bpmn:outgoing>
+      <bpmn:outgoing>Flow_AND_split_T2b</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:task id="T2a" name="Lập dự toán doanh thu, chi phí và nhu cầu nguồn lực">
+      <bpmn:incoming>Flow_AND_split_T2a</bpmn:incoming>
+      <bpmn:outgoing>Flow_T2a_AND_join</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="T2b" name="Lập dự toán cửa hàng và kênh trực tuyến">
+      <bpmn:incoming>Flow_AND_split_T2b</bpmn:incoming>
+      <bpmn:outgoing>Flow_T2b_AND_join</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:parallelGateway id="AND_join" name="Gộp kết quả song song">
+      <bpmn:incoming>Flow_T2a_AND_join</bpmn:incoming>
+      <bpmn:incoming>Flow_T2b_AND_join</bpmn:incoming>
+      <bpmn:outgoing>Flow_AND_join_GW_m1</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:exclusiveGateway id="GW_m1" name="Gộp vòng lặp dự toán">
+      <bpmn:incoming>Flow_AND_join_GW_m1</bpmn:incoming>
+      <bpmn:incoming>Flow_T3b_GW_m1</bpmn:incoming>
+      <bpmn:outgoing>Flow_GW_m1_T3</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="T3" name="Kiểm tra giả định, chuẩn hóa và hợp nhất dự toán toàn doanh nghiệp">
+      <bpmn:incoming>Flow_GW_m1_T3</bpmn:incoming>
+      <bpmn:outgoing>Flow_T3_GW1</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="GW1" name="Dự toán đủ căn cứ?">
+      <bpmn:incoming>Flow_T3_GW1</bpmn:incoming>
+      <bpmn:outgoing>Flow_GW1_T3b</bpmn:outgoing>
+      <bpmn:outgoing>Flow_GW1_GW_m2</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="GW_m2" name="Gộp vòng lặp ngân sách">
+      <bpmn:incoming>Flow_GW1_GW_m2</bpmn:incoming>
+      <bpmn:incoming>Flow_T4b_GW_m2</bpmn:incoming>
+      <bpmn:outgoing>Flow_GW_m2_T4</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="T4" name="Xem xét, điều chỉnh phân bổ và phê duyệt ngân sách theo đơn vị">
+      <bpmn:incoming>Flow_GW_m2_T4</bpmn:incoming>
+      <bpmn:outgoing>Flow_T4_GW2</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="GW2" name="Ngân sách được duyệt?">
+      <bpmn:incoming>Flow_T4_GW2</bpmn:incoming>
+      <bpmn:outgoing>Flow_GW2_T4b</bpmn:outgoing>
+      <bpmn:outgoing>Flow_GW2_AND_split2</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="T4b" name="Điều chỉnh ngân sách theo yêu cầu phê duyệt">
+      <bpmn:incoming>Flow_GW2_T4b</bpmn:incoming>
+      <bpmn:outgoing>Flow_T4b_GW_m2</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:parallelGateway id="AND_split2" name="Phân nhánh song song thu thập số liệu">
+      <bpmn:incoming>Flow_GW2_AND_split2</bpmn:incoming>
+      <bpmn:outgoing>Flow_AND_split2_T5a</bpmn:outgoing>
+      <bpmn:outgoing>Flow_AND_split2_T5b</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:parallelGateway id="AND_join2" name="Gộp số liệu">
+      <bpmn:incoming>Flow_T5a_AND_join2</bpmn:incoming>
+      <bpmn:incoming>Flow_T5b_AND_join2</bpmn:incoming>
+      <bpmn:outgoing>Flow_AND_join2_T6</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:task id="T6" name="Đối chiếu số thực tế với ngân sách và xác định chênh lệch">
+      <bpmn:incoming>Flow_AND_join2_T6</bpmn:incoming>
+      <bpmn:outgoing>Flow_T6_GW3</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="GW3" name="Có chênh lệch trọng yếu?">
+      <bpmn:incoming>Flow_T6_GW3</bpmn:incoming>
+      <bpmn:outgoing>Flow_GW3_GW_m4</bpmn:outgoing>
+      <bpmn:outgoing>Flow_GW3_T7</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="T7" name="Giải trình nguyên nhân chênh lệch và đề xuất hành động cải thiện">
+      <bpmn:incoming>Flow_GW3_T7</bpmn:incoming>
+      <bpmn:outgoing>Flow_T7_GW4</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="GW4" name="Vượt thẩm quyền đơn vị?">
+      <bpmn:incoming>Flow_T7_GW4</bpmn:incoming>
+      <bpmn:outgoing>Flow_GW4_T8</bpmn:outgoing>
+      <bpmn:outgoing>Flow_GW4_GW_m4</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="GW_m4" name="Gộp trước báo cáo">
+      <bpmn:incoming>Flow_GW3_GW_m4</bpmn:incoming>
+      <bpmn:incoming>Flow_GW4_GW_m4</bpmn:incoming>
+      <bpmn:incoming>Flow_T8_GW_m4</bpmn:incoming>
+      <bpmn:outgoing>Flow_GW_m4_T9</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="T9" name="Phát hành báo cáo hiệu suất kỳ và theo dõi hoàn thành hành động">
+      <bpmn:incoming>Flow_GW_m4_T9</bpmn:incoming>
+      <bpmn:outgoing>Flow_T9_End</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="EndEvent_1" name="Báo cáo hiệu suất kỳ được phát hành">
+      <bpmn:incoming>Flow_T9_End</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_Start_T1" sourceRef="StartEvent_1" targetRef="T1" />
+    <bpmn:sequenceFlow id="Flow_T1_AND_split" sourceRef="T1" targetRef="AND_split" />
+    <bpmn:sequenceFlow id="Flow_AND_split_T2a" sourceRef="AND_split" targetRef="T2a" />
+    <bpmn:sequenceFlow id="Flow_AND_split_T2b" sourceRef="AND_split" targetRef="T2b" />
+    <bpmn:sequenceFlow id="Flow_T2a_AND_join" sourceRef="T2a" targetRef="AND_join" />
+    <bpmn:sequenceFlow id="Flow_T2b_AND_join" sourceRef="T2b" targetRef="AND_join" />
+    <bpmn:sequenceFlow id="Flow_AND_join_GW_m1" sourceRef="AND_join" targetRef="GW_m1" />
+    <bpmn:sequenceFlow id="Flow_GW_m1_T3" sourceRef="GW_m1" targetRef="T3" />
+    <bpmn:sequenceFlow id="Flow_T3_GW1" sourceRef="T3" targetRef="GW1" />
+    <bpmn:sequenceFlow id="Flow_GW1_T3b" name="Không" sourceRef="GW1" targetRef="T3b" />
+    <bpmn:sequenceFlow id="Flow_T3b_GW_m1" sourceRef="T3b" targetRef="GW_m1" />
+    <bpmn:sequenceFlow id="Flow_GW1_GW_m2" name="Có" sourceRef="GW1" targetRef="GW_m2" />
+    <bpmn:sequenceFlow id="Flow_GW_m2_T4" sourceRef="GW_m2" targetRef="T4" />
+    <bpmn:sequenceFlow id="Flow_T4_GW2" sourceRef="T4" targetRef="GW2" />
+    <bpmn:sequenceFlow id="Flow_GW2_T4b" name="Không" sourceRef="GW2" targetRef="T4b" />
+    <bpmn:sequenceFlow id="Flow_T4b_GW_m2" sourceRef="T4b" targetRef="GW_m2" />
+    <bpmn:sequenceFlow id="Flow_GW2_AND_split2" name="Có" sourceRef="GW2" targetRef="AND_split2" />
+    <bpmn:sequenceFlow id="Flow_AND_split2_T5a" sourceRef="AND_split2" targetRef="T5a" />
+    <bpmn:sequenceFlow id="Flow_AND_split2_T5b" sourceRef="AND_split2" targetRef="T5b" />
+    <bpmn:sequenceFlow id="Flow_T5a_AND_join2" sourceRef="T5a" targetRef="AND_join2" />
+    <bpmn:sequenceFlow id="Flow_T5b_AND_join2" sourceRef="T5b" targetRef="AND_join2" />
+    <bpmn:sequenceFlow id="Flow_AND_join2_T6" sourceRef="AND_join2" targetRef="T6" />
+    <bpmn:sequenceFlow id="Flow_T6_GW3" sourceRef="T6" targetRef="GW3" />
+    <bpmn:sequenceFlow id="Flow_GW3_GW_m4" name="Không" sourceRef="GW3" targetRef="GW_m4" />
+    <bpmn:sequenceFlow id="Flow_GW3_T7" name="Có" sourceRef="GW3" targetRef="T7" />
+    <bpmn:sequenceFlow id="Flow_T7_GW4" sourceRef="T7" targetRef="GW4" />
+    <bpmn:sequenceFlow id="Flow_GW4_T8" name="Có" sourceRef="GW4" targetRef="T8" />
+    <bpmn:sequenceFlow id="Flow_GW4_GW_m4" name="Không" sourceRef="GW4" targetRef="GW_m4" />
+    <bpmn:sequenceFlow id="Flow_T8_GW_m4" sourceRef="T8" targetRef="GW_m4" />
+    <bpmn:sequenceFlow id="Flow_GW_m4_T9" sourceRef="GW_m4" targetRef="T9" />
+    <bpmn:sequenceFlow id="Flow_T9_End" sourceRef="T9" targetRef="EndEvent_1" />
+    <bpmn:task id="T3b" name="Bổ sung và điều chỉnh căn cứ dự toán">
+      <bpmn:incoming>Flow_GW1_T3b</bpmn:incoming>
+      <bpmn:outgoing>Flow_T3b_GW_m1</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="T5a" name="Tổng hợp dữ liệu doanh thu từ hệ thống POS">
+      <bpmn:incoming>Flow_AND_split2_T5a</bpmn:incoming>
+      <bpmn:outgoing>Flow_T5a_AND_join2</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="T5b" name="Tổng hợp dữ liệu chi phí và chỉ số vận hành từ ERP/BI">
+      <bpmn:incoming>Flow_AND_split2_T5b</bpmn:incoming>
+      <bpmn:outgoing>Flow_T5b_AND_join2</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="T8" name="Ban điều hành ưu tiên hành động, điều chuyển nguồn lực và cập nhật dự báo">
+      <bpmn:incoming>Flow_GW4_T8</bpmn:incoming>
+      <bpmn:outgoing>Flow_T8_GW_m4</bpmn:outgoing>
+    </bpmn:task>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1">
+      <bpmndi:BPMNShape id="Participant_1_di" bpmnElement="Participant_1" isHorizontal="true">
+        <dc:Bounds x="120" y="40" width="3500" height="900" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_BDH_di" bpmnElement="Lane_BDH" isHorizontal="true">
+        <dc:Bounds x="150" y="760" width="3470" height="180" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_ERP_di" bpmnElement="Lane_ERP" isHorizontal="true">
+        <dc:Bounds x="150" y="580" width="3470" height="180" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_CS_di" bpmnElement="Lane_CS" isHorizontal="true">
+        <dc:Bounds x="150" y="400" width="3470" height="180" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_TK_di" bpmnElement="Lane_TK" isHorizontal="true">
+        <dc:Bounds x="150" y="220" width="3470" height="180" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_TC_di" bpmnElement="Lane_TC" isHorizontal="true">
+        <dc:Bounds x="150" y="40" width="3470" height="180" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="215" y="115" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T1_di" bpmnElement="T1">
+        <dc:Bounds x="290" y="90" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="AND_split_di" bpmnElement="AND_split">
+        <dc:Bounds x="466" y="288" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="448" y="256" width="87" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T2a_di" bpmnElement="T2a">
+        <dc:Bounds x="550" y="270" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T2b_di" bpmnElement="T2b">
+        <dc:Bounds x="550" y="450" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="AND_join_di" bpmnElement="AND_join">
+        <dc:Bounds x="738" y="288" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="720" y="256" width="87" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW_m1_di" bpmnElement="GW_m1" isMarkerVisible="true">
+        <dc:Bounds x="828" y="108" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="812" y="70" width="82" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T3_di" bpmnElement="T3">
+        <dc:Bounds x="920" y="90" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW1_di" bpmnElement="GW1" isMarkerVisible="true">
+        <dc:Bounds x="1098" y="108" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1085" y="70" width="76" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T3b_di" bpmnElement="T3b">
+        <dc:Bounds x="1050" y="270" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW_m2_di" bpmnElement="GW_m2" isMarkerVisible="true">
+        <dc:Bounds x="1258" y="828" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T4_di" bpmnElement="T4">
+        <dc:Bounds x="1350" y="810" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW2_di" bpmnElement="GW2" isMarkerVisible="true">
+        <dc:Bounds x="1538" y="828" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T4b_di" bpmnElement="T4b">
+        <dc:Bounds x="1630" y="90" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="AND_split2_di" bpmnElement="AND_split2">
+        <dc:Bounds x="1878" y="648" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1786" y="650" width="87" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="AND_join2_di" bpmnElement="AND_join2">
+        <dc:Bounds x="2178" y="648" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T6_di" bpmnElement="T6">
+        <dc:Bounds x="2290" y="90" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW3_di" bpmnElement="GW3" isMarkerVisible="true">
+        <dc:Bounds x="2488" y="828" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T7_di" bpmnElement="T7">
+        <dc:Bounds x="2580" y="270" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW4_di" bpmnElement="GW4" isMarkerVisible="true">
+        <dc:Bounds x="2778" y="828" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2760" y="886" width="86" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T8_di" bpmnElement="T8">
+        <dc:Bounds x="2890" y="810" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW_m4_di" bpmnElement="GW_m4" isMarkerVisible="true">
+        <dc:Bounds x="3088" y="108" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3076" y="70.5" width="73" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T9_di" bpmnElement="T9">
+        <dc:Bounds x="3180" y="90" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1_di" bpmnElement="EndEvent_1">
+        <dc:Bounds x="3385" y="115" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3359" y="160" width="89" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T5a_di" bpmnElement="T5a">
+        <dc:Bounds x="2010" y="450" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T5b_di" bpmnElement="T5b">
+        <dc:Bounds x="2010" y="630" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_Start_T1_di" bpmnElement="Flow_Start_T1">
+        <di:waypoint x="251" y="133" />
+        <di:waypoint x="290" y="133" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_T1_AND_split_di" bpmnElement="Flow_T1_AND_split">
+        <di:waypoint x="390" y="133" />
+        <di:waypoint x="428" y="133" />
+        <di:waypoint x="428" y="313" />
+        <di:waypoint x="466" y="313" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_AND_split_T2a_di" bpmnElement="Flow_AND_split_T2a">
+        <di:waypoint x="516" y="313" />
+        <di:waypoint x="550" y="313" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_AND_split_T2b_di" bpmnElement="Flow_AND_split_T2b">
+        <di:waypoint x="491" y="338" />
+        <di:waypoint x="491" y="490" />
+        <di:waypoint x="550" y="490" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_T2a_AND_join_di" bpmnElement="Flow_T2a_AND_join">
+        <di:waypoint x="650" y="313" />
+        <di:waypoint x="738" y="313" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_T2b_AND_join_di" bpmnElement="Flow_T2b_AND_join">
+        <di:waypoint x="650" y="490" />
+        <di:waypoint x="763" y="490" />
+        <di:waypoint x="763" y="338" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_AND_join_GW_m1_di" bpmnElement="Flow_AND_join_GW_m1">
+        <di:waypoint x="788" y="313" />
+        <di:waypoint x="808" y="313" />
+        <di:waypoint x="808" y="133" />
+        <di:waypoint x="828" y="133" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GW_m1_T3_di" bpmnElement="Flow_GW_m1_T3">
+        <di:waypoint x="878" y="133" />
+        <di:waypoint x="920" y="133" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_T3_GW1_di" bpmnElement="Flow_T3_GW1">
+        <di:waypoint x="1020" y="133" />
+        <di:waypoint x="1098" y="133" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GW1_T3b_di" bpmnElement="Flow_GW1_T3b">
+        <di:waypoint x="1123" y="158" />
+        <di:waypoint x="1123" y="270" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1134" y="183" width="32" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_T3b_GW_m1_di" bpmnElement="Flow_T3b_GW_m1">
+        <di:waypoint x="1050" y="310" />
+        <di:waypoint x="853" y="310" />
+        <di:waypoint x="853" y="158" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GW1_GW_m2_di" bpmnElement="Flow_GW1_GW_m2">
+        <di:waypoint x="1148" y="133" />
+        <di:waypoint x="1203" y="133" />
+        <di:waypoint x="1203" y="853" />
+        <di:waypoint x="1258" y="853" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1172" y="113" width="15" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GW_m2_T4_di" bpmnElement="Flow_GW_m2_T4">
+        <di:waypoint x="1308" y="853" />
+        <di:waypoint x="1350" y="853" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_T4_GW2_di" bpmnElement="Flow_T4_GW2">
+        <di:waypoint x="1450" y="853" />
+        <di:waypoint x="1538" y="853" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GW2_T4b_di" bpmnElement="Flow_GW2_T4b">
+        <di:waypoint x="1563" y="828" />
+        <di:waypoint x="1563" y="130" />
+        <di:waypoint x="1630" y="130" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1514" y="803" width="32" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_T4b_GW_m2_di" bpmnElement="Flow_T4b_GW_m2">
+        <di:waypoint x="1680" y="90" />
+        <di:waypoint x="1680" y="60" />
+        <di:waypoint x="1283" y="60" />
+        <di:waypoint x="1283" y="828" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GW2_AND_split2_di" bpmnElement="Flow_GW2_AND_split2">
+        <di:waypoint x="1588" y="853" />
+        <di:waypoint x="1903" y="853" />
+        <di:waypoint x="1903" y="698" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1602" y="828" width="15" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_AND_split2_T5a_di" bpmnElement="Flow_AND_split2_T5a">
+        <di:waypoint x="1903" y="648" />
+        <di:waypoint x="1903" y="490" />
+        <di:waypoint x="2010" y="490" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_AND_split2_T5b_di" bpmnElement="Flow_AND_split2_T5b">
+        <di:waypoint x="1928" y="673" />
+        <di:waypoint x="2010" y="673" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_T5a_AND_join2_di" bpmnElement="Flow_T5a_AND_join2">
+        <di:waypoint x="2110" y="490" />
+        <di:waypoint x="2203" y="490" />
+        <di:waypoint x="2203" y="648" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_T5b_AND_join2_di" bpmnElement="Flow_T5b_AND_join2">
+        <di:waypoint x="2110" y="673" />
+        <di:waypoint x="2178" y="673" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_AND_join2_T6_di" bpmnElement="Flow_AND_join2_T6">
+        <di:waypoint x="2228" y="673" />
+        <di:waypoint x="2259" y="673" />
+        <di:waypoint x="2259" y="130" />
+        <di:waypoint x="2290" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_T6_GW3_di" bpmnElement="Flow_T6_GW3">
+        <di:waypoint x="2390" y="130" />
+        <di:waypoint x="2439" y="130" />
+        <di:waypoint x="2439" y="853" />
+        <di:waypoint x="2488" y="853" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GW3_GW_m4_di" bpmnElement="Flow_GW3_GW_m4">
+        <di:waypoint x="2513" y="828" />
+        <di:waypoint x="2513" y="133" />
+        <di:waypoint x="3088" y="133" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2464" y="803" width="32" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GW3_T7_di" bpmnElement="Flow_GW3_T7">
+        <di:waypoint x="2538" y="853" />
+        <di:waypoint x="2630" y="853" />
+        <di:waypoint x="2630" y="350" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2552" y="828" width="15" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_T7_GW4_di" bpmnElement="Flow_T7_GW4">
+        <di:waypoint x="2680" y="310" />
+        <di:waypoint x="2720" y="310" />
+        <di:waypoint x="2720" y="853" />
+        <di:waypoint x="2778" y="853" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GW4_T8_di" bpmnElement="Flow_GW4_T8">
+        <di:waypoint x="2828" y="853" />
+        <di:waypoint x="2890" y="853" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2832" y="823" width="15" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GW4_GW_m4_di" bpmnElement="Flow_GW4_GW_m4">
+        <di:waypoint x="2803" y="828" />
+        <di:waypoint x="2803" y="133" />
+        <di:waypoint x="3088" y="133" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2764" y="803" width="32" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_T8_GW_m4_di" bpmnElement="Flow_T8_GW_m4">
+        <di:waypoint x="2990" y="850" />
+        <di:waypoint x="3113" y="850" />
+        <di:waypoint x="3113" y="158" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GW_m4_T9_di" bpmnElement="Flow_GW_m4_T9">
+        <di:waypoint x="3138" y="133" />
+        <di:waypoint x="3180" y="133" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_T9_End_di" bpmnElement="Flow_T9_End">
+        <di:waypoint x="3280" y="133" />
+        <di:waypoint x="3385" y="133" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
