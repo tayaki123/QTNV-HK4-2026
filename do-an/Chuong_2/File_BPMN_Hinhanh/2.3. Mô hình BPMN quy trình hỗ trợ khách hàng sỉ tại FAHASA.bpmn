@@ -229,31 +229,31 @@
       <bpmndi:BPMNShape id="Participant_WholesaleCus_di" bpmnElement="Participant_WholesaleCus" isHorizontal="true">
         <dc:Bounds x="160" y="80" width="3750" height="180" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Start_Wholesale_di" bpmnElement="Start_Wholesale" bioc:stroke="#198754" bioc:fill="#d1e7dd" color:background-color="#d1e7dd" color:border-color="#198754">
+      <bpmndi:BPMNShape id="Start_Wholesale_di" bpmnElement="Start_Wholesale" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="210" y="142" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="190" y="185" width="76" height="14" />
+          <dc:Bounds x="190" y="185" width="77" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_Cus_SendReq_di" bpmnElement="Task_Cus_SendReq" bioc:stroke="#0d6efd" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d6efd">
+      <bpmndi:BPMNShape id="Task_Cus_SendReq_di" bpmnElement="Task_Cus_SendReq" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
         <dc:Bounds x="280" y="120" width="110" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_Cus_Clarify_di" bpmnElement="Task_Cus_Clarify" bioc:stroke="#0d6efd" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d6efd">
+      <bpmndi:BPMNShape id="Task_Cus_Clarify_di" bpmnElement="Task_Cus_Clarify" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
         <dc:Bounds x="740" y="120" width="110" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_Cus_CheckQuote_di" bpmnElement="Task_Cus_CheckQuote" bioc:stroke="#0d6efd" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d6efd">
+      <bpmndi:BPMNShape id="Task_Cus_CheckQuote_di" bpmnElement="Task_Cus_CheckQuote" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
         <dc:Bounds x="1710" y="120" width="110" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_Cus_Pay_di" bpmnElement="Task_Cus_Pay" bioc:stroke="#0d6efd" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d6efd">
+      <bpmndi:BPMNShape id="Task_Cus_Pay_di" bpmnElement="Task_Cus_Pay" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
         <dc:Bounds x="2270" y="120" width="110" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="End_Wholesale_Cus_di" bpmnElement="End_Wholesale_Cus" bioc:stroke="#198754" bioc:fill="#d1e7dd" color:background-color="#d1e7dd" color:border-color="#198754">
+      <bpmndi:BPMNShape id="End_Wholesale_Cus_di" bpmnElement="End_Wholesale_Cus" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
         <dc:Bounds x="3380" y="142" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="3353" y="185" width="90" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_Cus_Inspect_di" bpmnElement="Task_Cus_Inspect" bioc:stroke="#0d6efd" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d6efd">
+      <bpmndi:BPMNShape id="Task_Cus_Inspect_di" bpmnElement="Task_Cus_Inspect" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
         <dc:Bounds x="3190" y="120" width="110" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_C1_di" bpmnElement="Flow_C1">
@@ -295,109 +295,109 @@
       <bpmndi:BPMNShape id="Lane_B2B_Dept_di" bpmnElement="Lane_B2B_Dept" isHorizontal="true">
         <dc:Bounds x="190" y="300" width="3720" height="270" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_B2B_Receive_di" bpmnElement="Task_B2B_Receive" bioc:stroke="#0d6efd" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d6efd">
+      <bpmndi:BPMNShape id="Task_B2B_Receive_di" bpmnElement="Task_B2B_Receive" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
         <dc:Bounds x="280" y="355" width="110" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_1_di" bpmnElement="Gateway_1" isMarkerVisible="true" bioc:stroke="#78350f" bioc:fill="#fef3c7" color:background-color="#fef3c7" color:border-color="#78350f">
+      <bpmndi:BPMNShape id="Gateway_1_di" bpmnElement="Gateway_1" isMarkerVisible="true" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
         <dc:Bounds x="460" y="370" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="444" y="325" width="82" height="27" />
+          <dc:Bounds x="444" y="325" width="82" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_B2B_RetailGuide_di" bpmnElement="Task_B2B_RetailGuide" bioc:stroke="#0d6efd" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d6efd">
+      <bpmndi:BPMNShape id="Task_B2B_RetailGuide_di" bpmnElement="Task_B2B_RetailGuide" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
         <dc:Bounds x="430" y="480" width="110" height="65" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_2_di" bpmnElement="Gateway_2" isMarkerVisible="true" bioc:stroke="#78350f" bioc:fill="#fef3c7" color:background-color="#fef3c7" color:border-color="#78350f">
+      <bpmndi:BPMNShape id="Gateway_2_di" bpmnElement="Gateway_2" isMarkerVisible="true" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
         <dc:Bounds x="640" y="370" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="625" y="325" width="80" height="27" />
+          <dc:Bounds x="624" y="325" width="83" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_B2B_Compensate_di" bpmnElement="Task_B2B_Compensate" bioc:stroke="#0d6efd" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d6efd">
+      <bpmndi:BPMNShape id="Task_B2B_Compensate_di" bpmnElement="Task_B2B_Compensate" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
         <dc:Bounds x="3370" y="355" width="110" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_WH_CheckStock_di" bpmnElement="Task_WH_CheckStock" bioc:stroke="#0d6efd" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d6efd">
+      <bpmndi:BPMNShape id="Task_WH_CheckStock_di" bpmnElement="Task_WH_CheckStock" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
         <dc:Bounds x="920" y="625" width="110" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_3_di" bpmnElement="Gateway_3" isMarkerVisible="true" bioc:stroke="#78350f" bioc:fill="#fef3c7" color:background-color="#fef3c7" color:border-color="#78350f">
+      <bpmndi:BPMNShape id="Gateway_3_di" bpmnElement="Gateway_3" isMarkerVisible="true" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
         <dc:Bounds x="1130" y="640" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1114" y="595" width="82" height="27" />
+          <dc:Bounds x="1114" y="595" width="82" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_WH_ReportShortage_di" bpmnElement="Task_WH_ReportShortage" bioc:stroke="#0d6efd" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d6efd">
+      <bpmndi:BPMNShape id="Task_WH_ReportShortage_di" bpmnElement="Task_WH_ReportShortage" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
         <dc:Bounds x="1290" y="670" width="110" height="70" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_WH_Prepare_di" bpmnElement="Task_WH_Prepare" bioc:stroke="#0d6efd" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d6efd">
+      <bpmndi:BPMNShape id="Task_WH_Prepare_di" bpmnElement="Task_WH_Prepare" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
         <dc:Bounds x="2640" y="625" width="110" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_Acc_Hold_di" bpmnElement="Task_Acc_Hold" bioc:stroke="#0d6efd" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d6efd">
+      <bpmndi:BPMNShape id="Task_Acc_Hold_di" bpmnElement="Task_Acc_Hold" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
         <dc:Bounds x="2450" y="890" width="110" height="45" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_7_di" bpmnElement="Gateway_7" isMarkerVisible="true" bioc:stroke="#78350f" bioc:fill="#fef3c7" color:background-color="#fef3c7" color:border-color="#78350f">
+      <bpmndi:BPMNShape id="Gateway_7_di" bpmnElement="Gateway_7" isMarkerVisible="true" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
         <dc:Bounds x="2810" y="1010" width="50" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="2706" y="1026" width="87" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_8_di" bpmnElement="Gateway_8" isMarkerVisible="true" bioc:stroke="#78350f" bioc:fill="#fef3c7" color:background-color="#fef3c7" color:border-color="#78350f">
+      <bpmndi:BPMNShape id="Gateway_8_di" bpmnElement="Gateway_8" isMarkerVisible="true" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
         <dc:Bounds x="3220" y="1010" width="50" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="3206" y="1070" width="78" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_OMS_Close_di" bpmnElement="Task_OMS_Close" bioc:stroke="#0d6efd" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d6efd">
+      <bpmndi:BPMNShape id="Task_OMS_Close_di" bpmnElement="Task_OMS_Close" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
         <dc:Bounds x="3550" y="995" width="110" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="End_B2B_Success_di" bpmnElement="End_B2B_Success" bioc:stroke="#198754" bioc:fill="#d1e7dd" color:background-color="#d1e7dd" color:border-color="#198754">
+      <bpmndi:BPMNShape id="End_B2B_Success_di" bpmnElement="End_B2B_Success" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
         <dc:Bounds x="3732" y="1017" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3705" y="1060" width="90" height="14" />
+          <dc:Bounds x="3712" y="1060" width="77" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_4_di" bpmnElement="Gateway_4" isMarkerVisible="true" bioc:stroke="#78350f" bioc:fill="#fef3c7" color:background-color="#fef3c7" color:border-color="#78350f">
+      <bpmndi:BPMNShape id="Gateway_4_di" bpmnElement="Gateway_4" isMarkerVisible="true" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
         <dc:Bounds x="1495" y="435" width="50" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1403" y="440" width="82" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_B2B_ReqClarify_di" bpmnElement="Task_B2B_ReqClarify" bioc:stroke="#0d6efd" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d6efd">
+      <bpmndi:BPMNShape id="Task_B2B_ReqClarify_di" bpmnElement="Task_B2B_ReqClarify" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
         <dc:Bounds x="740" y="432" width="110" height="65" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="End_B2B_Cancel_di" bpmnElement="End_B2B_Cancel" bioc:stroke="#b91c1c" bioc:fill="#fee2e2" color:background-color="#fee2e2" color:border-color="#b91c1c">
+      <bpmndi:BPMNShape id="End_B2B_Cancel_di" bpmnElement="End_B2B_Cancel" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
         <dc:Bounds x="1602" y="495" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1575" y="457.5" width="90" height="27" />
+          <dc:Bounds x="1575" y="458" width="90" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_B2B_ReQuote_di" bpmnElement="Task_B2B_ReQuote" bioc:stroke="#0d6efd" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d6efd">
+      <bpmndi:BPMNShape id="Task_B2B_ReQuote_di" bpmnElement="Task_B2B_ReQuote" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
         <dc:Bounds x="1995" y="456" width="110" height="65" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_B2B_Quote_di" bpmnElement="Task_B2B_Quote" bioc:stroke="#0d6efd" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d6efd">
+      <bpmndi:BPMNShape id="Task_B2B_Quote_di" bpmnElement="Task_B2B_Quote" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
         <dc:Bounds x="1710" y="338" width="110" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_5_di" bpmnElement="Gateway_5" isMarkerVisible="true" bioc:stroke="#78350f" bioc:fill="#fef3c7" color:background-color="#fef3c7" color:border-color="#78350f">
+      <bpmndi:BPMNShape id="Gateway_5_di" bpmnElement="Gateway_5" isMarkerVisible="true" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
         <dc:Bounds x="1930" y="353" width="50" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1919" y="308" width="73" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_B2B_OrderCreate_di" bpmnElement="Task_B2B_OrderCreate" bioc:stroke="#0d6efd" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d6efd">
+      <bpmndi:BPMNShape id="Task_B2B_OrderCreate_di" bpmnElement="Task_B2B_OrderCreate" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
         <dc:Bounds x="2100" y="338" width="110" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_Acc_Invoice_di" bpmnElement="Task_Acc_Invoice" bioc:stroke="#0d6efd" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d6efd">
+      <bpmndi:BPMNShape id="Task_Acc_Invoice_di" bpmnElement="Task_Acc_Invoice" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
         <dc:Bounds x="2270" y="797" width="110" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_6_di" bpmnElement="Gateway_6" isMarkerVisible="true" bioc:stroke="#78350f" bioc:fill="#fef3c7" color:background-color="#fef3c7" color:border-color="#78350f">
+      <bpmndi:BPMNShape id="Gateway_6_di" bpmnElement="Gateway_6" isMarkerVisible="true" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
         <dc:Bounds x="2480" y="812" width="50" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="2466" y="767" width="79" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_Log_Deliver_di" bpmnElement="Task_Log_Deliver" bioc:stroke="#0d6efd" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d6efd">
+      <bpmndi:BPMNShape id="Task_Log_Deliver_di" bpmnElement="Task_Log_Deliver" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
         <dc:Bounds x="2951" y="957" width="110" height="65" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_Log_SelfPickup_di" bpmnElement="Task_Log_SelfPickup" bioc:stroke="#0d6efd" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d6efd">
+      <bpmndi:BPMNShape id="Task_Log_SelfPickup_di" bpmnElement="Task_Log_SelfPickup" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
         <dc:Bounds x="2956" y="1057" width="110" height="65" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_F1_di" bpmnElement="Flow_F1">
@@ -451,10 +451,10 @@
       <bpmndi:BPMNEdge id="Flow_G3_Yes_di" bpmnElement="Flow_G3_Yes">
         <di:waypoint x="1180" y="665" />
         <di:waypoint x="1240" y="665" />
-        <di:waypoint x="1240" y="378" />
-        <di:waypoint x="1710" y="378" />
+        <di:waypoint x="1240" y="360" />
+        <di:waypoint x="1710" y="360" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1244" y="523" width="73" height="14" />
+          <dc:Bounds x="1244" y="517" width="73" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_G3_No_di" bpmnElement="Flow_G3_No">
@@ -600,9 +600,8 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_Comp_Done_di" bpmnElement="Flow_Comp_Done">
         <di:waypoint x="3480" y="395" />
-        <di:waypoint x="3515" y="395" />
-        <di:waypoint x="3515" y="1035" />
-        <di:waypoint x="3550" y="1035" />
+        <di:waypoint x="3605" y="395" />
+        <di:waypoint x="3605" y="995" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_F8_di" bpmnElement="Flow_F8">
         <di:waypoint x="3660" y="1035" />
