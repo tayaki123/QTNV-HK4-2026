@@ -1,0 +1,734 @@
+//Hình 4.10//
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" id="Definitions_Hinh_4_10" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="18.28.0">
+  <bpmn:collaboration id="Collaboration_410">
+    <bpmn:participant id="Participant_CSKH_410" name="Bộ phận CSKH" processRef="Process_410" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_410" isExecutable="false">
+    <bpmn:startEvent id="StartEvent_410" name="Bắt đầu">
+      <bpmn:outgoing>Flow_Start_410</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Task_Pre_410" name="Tiếp nhận khiếu nại &#38; kiểm tra ban đầu&#10;(10 phút)">
+      <bpmn:incoming>Flow_Start_410</bpmn:incoming>
+      <bpmn:outgoing>Flow_To_G1</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_G1" name="G1: Thông tin đầy đủ&#10;&#38; hợp lệ?">
+      <bpmn:incoming>Flow_To_G1</bpmn:incoming>
+      <bpmn:outgoing>Flow_Du_410</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Thieu_410</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_Next_410" name="Tiếp tục kiểm tra đơn hàng / giao dịch&#10;(0 phút)">
+      <bpmn:incoming>Flow_Du_410</bpmn:incoming>
+      <bpmn:incoming>Flow_Loop_410</bpmn:incoming>
+      <bpmn:outgoing>Flow_To_End_410</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_Sub_410" name="Yêu cầu bổ sung thông tin / chứng từ&#10;(20 phút)">
+      <bpmn:incoming>Flow_Thieu_410</bpmn:incoming>
+      <bpmn:outgoing>Flow_Loop_410</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="EndEvent_410" name="Kết thúc">
+      <bpmn:incoming>Flow_To_End_410</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_Start_410" sourceRef="StartEvent_410" targetRef="Task_Pre_410" />
+    <bpmn:sequenceFlow id="Flow_To_G1" sourceRef="Task_Pre_410" targetRef="Gateway_G1" />
+    <bpmn:sequenceFlow id="Flow_Du_410" name="Đủ&#10;(80%)" sourceRef="Gateway_G1" targetRef="Task_Next_410" />
+    <bpmn:sequenceFlow id="Flow_Thieu_410" name="Thiếu&#10;(20%)" sourceRef="Gateway_G1" targetRef="Task_Sub_410" />
+    <bpmn:sequenceFlow id="Flow_Loop_410" sourceRef="Task_Sub_410" targetRef="Task_Next_410" />
+    <bpmn:sequenceFlow id="Flow_To_End_410" sourceRef="Task_Next_410" targetRef="EndEvent_410" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_410">
+    <bpmndi:BPMNPlane id="BPMNPlane_410" bpmnElement="Collaboration_410">
+      <bpmndi:BPMNShape id="Participant_CSKH_410_di" bpmnElement="Participant_CSKH_410" isHorizontal="true">
+        <dc:Bounds x="120" y="80" width="940" height="340" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_410_di" bpmnElement="StartEvent_410" bioc:stroke="#43A047" bioc:fill="#C8E6C9" color:background-color="#c8e6c9" color:border-color="#43a047">
+        <dc:Bounds x="175" y="165" width="40" height="40" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="176" y="210" width="38" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Pre_410_di" bpmnElement="Task_Pre_410" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="250" y="145" width="160" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_G1_di" bpmnElement="Gateway_G1" isMarkerVisible="true" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="465" y="160" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="439" y="110" width="103" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Next_410_di" bpmnElement="Task_Next_410" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="640" y="145" width="165" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Sub_410_di" bpmnElement="Task_Sub_410" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="450" y="275" width="160" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_410_di" bpmnElement="EndEvent_410" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <dc:Bounds x="870" y="165" width="40" height="40" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="871" y="210" width="41" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_Start_410_di" bpmnElement="Flow_Start_410">
+        <di:waypoint x="215" y="185" />
+        <di:waypoint x="250" y="185" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_To_G1_di" bpmnElement="Flow_To_G1">
+        <di:waypoint x="410" y="185" />
+        <di:waypoint x="465" y="185" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Du_410_di" bpmnElement="Flow_Du_410">
+        <di:waypoint x="515" y="185" />
+        <di:waypoint x="640" y="185" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="555" y="155" width="35" height="30" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Thieu_410_di" bpmnElement="Flow_Thieu_410">
+        <di:waypoint x="490" y="210" />
+        <di:waypoint x="490" y="275" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="500" y="225" width="40" height="30" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Loop_410_di" bpmnElement="Flow_Loop_410">
+        <di:waypoint x="610" y="315" />
+        <di:waypoint x="720" y="315" />
+        <di:waypoint x="720" y="225" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_To_End_410_di" bpmnElement="Flow_To_End_410">
+        <di:waypoint x="805" y="185" />
+        <di:waypoint x="870" y="185" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
+
+//Hình 4.11//
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" id="Definitions_Hinh_4_11" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="18.28.0">
+  <bpmn:collaboration id="Collaboration_411">
+    <bpmn:participant id="Participant_CSKH_411" name="Bộ phận CSKH" processRef="Process_411" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_411" isExecutable="false">
+    <bpmn:startEvent id="StartEvent_411" name="Bắt đầu">
+      <bpmn:outgoing>Flow_Start_411</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Task_Pre_411" name="Yêu cầu kiểm tra đơn hàng / giao dịch&#10;(5 phút)">
+      <bpmn:incoming>Flow_Start_411</bpmn:incoming>
+      <bpmn:outgoing>Flow_To_G2</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_G2" name="G2: Đơn hàng / giao dịch&#10;có tồn tại?">
+      <bpmn:incoming>Flow_To_G2</bpmn:incoming>
+      <bpmn:outgoing>Flow_TonTai</bpmn:outgoing>
+      <bpmn:outgoing>Flow_KhongTonTai</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_Next_411" name="Phân loại nội dung khiếu nại&#10;(0 phút)">
+      <bpmn:incoming>Flow_TonTai</bpmn:incoming>
+      <bpmn:incoming>Flow_Loop_411</bpmn:incoming>
+      <bpmn:outgoing>Flow_To_End_411</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_Sub_411" name="Thông báo từ chối (Không tìm thấy GD)&#10;(15 phút)">
+      <bpmn:incoming>Flow_KhongTonTai</bpmn:incoming>
+      <bpmn:outgoing>Flow_Loop_411</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="EndEvent_411" name="Kết thúc">
+      <bpmn:incoming>Flow_To_End_411</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_Start_411" sourceRef="StartEvent_411" targetRef="Task_Pre_411" />
+    <bpmn:sequenceFlow id="Flow_To_G2" sourceRef="Task_Pre_411" targetRef="Gateway_G2" />
+    <bpmn:sequenceFlow id="Flow_TonTai" name="Tồn tại&#10;(95%)" sourceRef="Gateway_G2" targetRef="Task_Next_411" />
+    <bpmn:sequenceFlow id="Flow_KhongTonTai" name="Không tồn tại&#10;(5%)" sourceRef="Gateway_G2" targetRef="Task_Sub_411" />
+    <bpmn:sequenceFlow id="Flow_Loop_411" sourceRef="Task_Sub_411" targetRef="Task_Next_411" />
+    <bpmn:sequenceFlow id="Flow_To_End_411" sourceRef="Task_Next_411" targetRef="EndEvent_411" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_411">
+    <bpmndi:BPMNPlane id="BPMNPlane_411" bpmnElement="Collaboration_411">
+      <bpmndi:BPMNShape id="Participant_CSKH_411_di" bpmnElement="Participant_CSKH_411" isHorizontal="true">
+        <dc:Bounds x="120" y="80" width="940" height="340" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_411_di" bpmnElement="StartEvent_411" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
+        <dc:Bounds x="175" y="165" width="40" height="40" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="176" y="210" width="38" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Pre_411_di" bpmnElement="Task_Pre_411" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="250" y="145" width="160" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_G2_di" bpmnElement="Gateway_G2" isMarkerVisible="true" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="465" y="160" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="429" y="110" width="123" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Next_411_di" bpmnElement="Task_Next_411" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="640" y="145" width="165" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Sub_411_di" bpmnElement="Task_Sub_411" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="450" y="275" width="160" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_411_di" bpmnElement="EndEvent_411" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <dc:Bounds x="870" y="165" width="40" height="40" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="871" y="210" width="41" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_Start_411_di" bpmnElement="Flow_Start_411">
+        <di:waypoint x="215" y="185" />
+        <di:waypoint x="250" y="185" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_To_G2_di" bpmnElement="Flow_To_G2">
+        <di:waypoint x="410" y="185" />
+        <di:waypoint x="465" y="185" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_TonTai_di" bpmnElement="Flow_TonTai">
+        <di:waypoint x="515" y="185" />
+        <di:waypoint x="640" y="185" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="555" y="155" width="40" height="30" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_KhongTonTai_di" bpmnElement="Flow_KhongTonTai">
+        <di:waypoint x="490" y="210" />
+        <di:waypoint x="490" y="275" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="495" y="225" width="70" height="30" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Loop_411_di" bpmnElement="Flow_Loop_411">
+        <di:waypoint x="610" y="315" />
+        <di:waypoint x="720" y="315" />
+        <di:waypoint x="720" y="225" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_To_End_411_di" bpmnElement="Flow_To_End_411">
+        <di:waypoint x="805" y="185" />
+        <di:waypoint x="870" y="185" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
+
+//Hình 4.11//
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" id="Definitions_Hinh_4_11" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="18.28.0">
+  <bpmn:collaboration id="Collaboration_411">
+    <bpmn:participant id="Participant_CSKH_411" name="Bộ phận CSKH" processRef="Process_411" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_411" isExecutable="false">
+    <bpmn:startEvent id="StartEvent_411" name="Bắt đầu">
+      <bpmn:outgoing>Flow_Start_411</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Task_Pre_411" name="Yêu cầu kiểm tra đơn hàng / giao dịch&#10;(5 phút)">
+      <bpmn:incoming>Flow_Start_411</bpmn:incoming>
+      <bpmn:outgoing>Flow_To_G2</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_G2" name="G2: Đơn hàng / giao dịch&#10;có tồn tại?">
+      <bpmn:incoming>Flow_To_G2</bpmn:incoming>
+      <bpmn:outgoing>Flow_TonTai</bpmn:outgoing>
+      <bpmn:outgoing>Flow_KhongTonTai</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_Next_411" name="Phân loại nội dung khiếu nại&#10;(0 phút)">
+      <bpmn:incoming>Flow_TonTai</bpmn:incoming>
+      <bpmn:incoming>Flow_Loop_411</bpmn:incoming>
+      <bpmn:outgoing>Flow_To_End_411</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_Sub_411" name="Thông báo từ chối (Không tìm thấy GD)&#10;(15 phút)">
+      <bpmn:incoming>Flow_KhongTonTai</bpmn:incoming>
+      <bpmn:outgoing>Flow_Loop_411</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="EndEvent_411" name="Kết thúc">
+      <bpmn:incoming>Flow_To_End_411</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_Start_411" sourceRef="StartEvent_411" targetRef="Task_Pre_411" />
+    <bpmn:sequenceFlow id="Flow_To_G2" sourceRef="Task_Pre_411" targetRef="Gateway_G2" />
+    <bpmn:sequenceFlow id="Flow_TonTai" name="Tồn tại&#10;(95%)" sourceRef="Gateway_G2" targetRef="Task_Next_411" />
+    <bpmn:sequenceFlow id="Flow_KhongTonTai" name="Không tồn tại&#10;(5%)" sourceRef="Gateway_G2" targetRef="Task_Sub_411" />
+    <bpmn:sequenceFlow id="Flow_Loop_411" sourceRef="Task_Sub_411" targetRef="Task_Next_411" />
+    <bpmn:sequenceFlow id="Flow_To_End_411" sourceRef="Task_Next_411" targetRef="EndEvent_411" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_411">
+    <bpmndi:BPMNPlane id="BPMNPlane_411" bpmnElement="Collaboration_411">
+      <bpmndi:BPMNShape id="Participant_CSKH_411_di" bpmnElement="Participant_CSKH_411" isHorizontal="true">
+        <dc:Bounds x="120" y="80" width="940" height="340" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_411_di" bpmnElement="StartEvent_411" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
+        <dc:Bounds x="175" y="165" width="40" height="40" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="176" y="210" width="38" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Pre_411_di" bpmnElement="Task_Pre_411" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="250" y="145" width="160" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_G2_di" bpmnElement="Gateway_G2" isMarkerVisible="true" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="465" y="160" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="429" y="110" width="123" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Next_411_di" bpmnElement="Task_Next_411" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="640" y="145" width="165" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Sub_411_di" bpmnElement="Task_Sub_411" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="450" y="275" width="160" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_411_di" bpmnElement="EndEvent_411" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <dc:Bounds x="870" y="165" width="40" height="40" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="871" y="210" width="41" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_Start_411_di" bpmnElement="Flow_Start_411">
+        <di:waypoint x="215" y="185" />
+        <di:waypoint x="250" y="185" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_To_G2_di" bpmnElement="Flow_To_G2">
+        <di:waypoint x="410" y="185" />
+        <di:waypoint x="465" y="185" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_TonTai_di" bpmnElement="Flow_TonTai">
+        <di:waypoint x="515" y="185" />
+        <di:waypoint x="640" y="185" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="555" y="155" width="40" height="30" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_KhongTonTai_di" bpmnElement="Flow_KhongTonTai">
+        <di:waypoint x="490" y="210" />
+        <di:waypoint x="490" y="275" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="495" y="225" width="70" height="30" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Loop_411_di" bpmnElement="Flow_Loop_411">
+        <di:waypoint x="610" y="315" />
+        <di:waypoint x="720" y="315" />
+        <di:waypoint x="720" y="225" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_To_End_411_di" bpmnElement="Flow_To_End_411">
+        <di:waypoint x="805" y="185" />
+        <di:waypoint x="870" y="185" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
+
+//Hình 4.12//
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" id="Definitions_Hinh_4_12" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="18.28.0">
+  <bpmn:collaboration id="Collaboration_412">
+    <bpmn:participant id="Participant_CSKH_412" name="Bộ phận CSKH" processRef="Process_412" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_412" isExecutable="false">
+    <bpmn:startEvent id="StartEvent_412" name="Bắt đầu">
+      <bpmn:outgoing>Flow_Start_412</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Task_Pre_412" name="Phân loại nội dung khiếu nại&#10;(5 phút)">
+      <bpmn:incoming>Flow_Start_412</bpmn:incoming>
+      <bpmn:outgoing>Flow_To_G3</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_G3" name="G3: Thuộc phạm vi CSKH&#10;xử lý trực tiếp?">
+      <bpmn:incoming>Flow_To_G3</bpmn:incoming>
+      <bpmn:outgoing>Flow_CSKH_412</bpmn:outgoing>
+      <bpmn:outgoing>Flow_ChuyenBP_412</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_Next_412" name="Giải thích chính sách &#38; xử lý trực tiếp&#10;(15 phút)">
+      <bpmn:incoming>Flow_CSKH_412</bpmn:incoming>
+      <bpmn:incoming>Flow_Loop_412</bpmn:incoming>
+      <bpmn:outgoing>Flow_To_End_412</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="EndEvent_412" name="Kết thúc">
+      <bpmn:incoming>Flow_To_End_412</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_Start_412" sourceRef="StartEvent_412" targetRef="Task_Pre_412" />
+    <bpmn:sequenceFlow id="Flow_To_G3" sourceRef="Task_Pre_412" targetRef="Gateway_G3" />
+    <bpmn:sequenceFlow id="Flow_CSKH_412" name="Có / Tự xử lý&#10;(40%)" sourceRef="Gateway_G3" targetRef="Task_Next_412" />
+    <bpmn:sequenceFlow id="Flow_ChuyenBP_412" name="Chuyển bộ phận&#10;(60%)" sourceRef="Gateway_G3" targetRef="Task_Sub_412" />
+    <bpmn:sequenceFlow id="Flow_Loop_412" sourceRef="Task_Sub_412" targetRef="Task_Next_412" />
+    <bpmn:sequenceFlow id="Flow_To_End_412" sourceRef="Task_Next_412" targetRef="EndEvent_412" />
+    <bpmn:task id="Task_Sub_412" name="Chuyển bộ phận liên quan giải quyết&#10;(30 phút)">
+      <bpmn:incoming>Flow_ChuyenBP_412</bpmn:incoming>
+      <bpmn:outgoing>Flow_Loop_412</bpmn:outgoing>
+    </bpmn:task>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_412">
+    <bpmndi:BPMNPlane id="BPMNPlane_412" bpmnElement="Collaboration_412">
+      <bpmndi:BPMNShape id="Participant_CSKH_412_di" bpmnElement="Participant_CSKH_412" isHorizontal="true">
+        <dc:Bounds x="120" y="80" width="940" height="340" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_412_di" bpmnElement="StartEvent_412" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
+        <dc:Bounds x="175" y="165" width="40" height="40" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="176" y="210" width="38" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Pre_412_di" bpmnElement="Task_Pre_412" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="250" y="145" width="160" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_G3_di" bpmnElement="Gateway_G3" isMarkerVisible="true" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="465" y="160" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="427" y="118" width="127" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Next_412_di" bpmnElement="Task_Next_412" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="640" y="145" width="165" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_412_di" bpmnElement="EndEvent_412" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <dc:Bounds x="870" y="165" width="40" height="40" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="871" y="210" width="41" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Sub_412_di" bpmnElement="Task_Sub_412" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="410" y="290" width="160" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_Start_412_di" bpmnElement="Flow_Start_412">
+        <di:waypoint x="215" y="185" />
+        <di:waypoint x="250" y="185" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_To_G3_di" bpmnElement="Flow_To_G3">
+        <di:waypoint x="410" y="185" />
+        <di:waypoint x="465" y="185" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_CSKH_412_di" bpmnElement="Flow_CSKH_412">
+        <di:waypoint x="515" y="185" />
+        <di:waypoint x="640" y="185" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="545" y="155" width="70" height="30" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ChuyenBP_412_di" bpmnElement="Flow_ChuyenBP_412">
+        <di:waypoint x="490" y="210" />
+        <di:waypoint x="490" y="290" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="494" y="236" width="91" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Loop_412_di" bpmnElement="Flow_Loop_412">
+        <di:waypoint x="570" y="330" />
+        <di:waypoint x="720" y="330" />
+        <di:waypoint x="720" y="225" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_To_End_412_di" bpmnElement="Flow_To_End_412">
+        <di:waypoint x="805" y="185" />
+        <di:waypoint x="870" y="185" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
+
+//Hình 4.13//
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" id="Definitions_Hinh_4_13" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="18.28.0">
+  <bpmn:collaboration id="Collaboration_413">
+    <bpmn:participant id="Participant_ChuyenMon_413" name="Bộ phận Chuyên môn" processRef="Process_413" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_413" isExecutable="false">
+    <bpmn:startEvent id="StartEvent_413" name="Bắt đầu">
+      <bpmn:outgoing>Flow_Start_413</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Task_Pre_413" name="Xác minh nguyên nhân &#38; tính hợp lệ&#10;(30 phút)">
+      <bpmn:incoming>Flow_Start_413</bpmn:incoming>
+      <bpmn:outgoing>Flow_To_G4</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_G4" name="G4: Khiếu nại hợp lệ&#10;&#38; đúng thực tế?">
+      <bpmn:incoming>Flow_To_G4</bpmn:incoming>
+      <bpmn:outgoing>Flow_HopLe_413</bpmn:outgoing>
+      <bpmn:outgoing>Flow_KhongCoSo_413</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_Next_413" name="Đề xuất phương án giải quyết&#10;(15 phút)">
+      <bpmn:incoming>Flow_HopLe_413</bpmn:incoming>
+      <bpmn:incoming>Flow_Loop_413</bpmn:incoming>
+      <bpmn:outgoing>Flow_To_End_413</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="EndEvent_413" name="Kết thúc">
+      <bpmn:incoming>Flow_To_End_413</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_Start_413" sourceRef="StartEvent_413" targetRef="Task_Pre_413" />
+    <bpmn:sequenceFlow id="Flow_To_G4" sourceRef="Task_Pre_413" targetRef="Gateway_G4" />
+    <bpmn:sequenceFlow id="Flow_HopLe_413" name="Hợp lệ&#10;(85%)" sourceRef="Gateway_G4" targetRef="Task_Next_413" />
+    <bpmn:sequenceFlow id="Flow_KhongCoSo_413" name="Không có cơ sở&#10;(15%)" sourceRef="Gateway_G4" targetRef="Task_Sub_413" />
+    <bpmn:sequenceFlow id="Flow_Loop_413" sourceRef="Task_Sub_413" targetRef="Task_Next_413" />
+    <bpmn:sequenceFlow id="Flow_To_End_413" sourceRef="Task_Next_413" targetRef="EndEvent_413" />
+    <bpmn:task id="Task_Sub_413" name="Lập biên bản từ chối / Nêu rõ lý do&#10;(10 phút)">
+      <bpmn:incoming>Flow_KhongCoSo_413</bpmn:incoming>
+      <bpmn:outgoing>Flow_Loop_413</bpmn:outgoing>
+    </bpmn:task>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_413">
+    <bpmndi:BPMNPlane id="BPMNPlane_413" bpmnElement="Collaboration_413">
+      <bpmndi:BPMNShape id="Participant_ChuyenMon_413_di" bpmnElement="Participant_ChuyenMon_413" isHorizontal="true">
+        <dc:Bounds x="120" y="80" width="940" height="340" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_413_di" bpmnElement="StartEvent_413" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
+        <dc:Bounds x="175" y="165" width="40" height="40" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="176" y="212" width="38" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Pre_413_di" bpmnElement="Task_Pre_413" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="250" y="145" width="160" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_G4_di" bpmnElement="Gateway_G4" isMarkerVisible="true" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="465" y="160" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="440" y="110" width="101" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Next_413_di" bpmnElement="Task_Next_413" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="640" y="145" width="165" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_413_di" bpmnElement="EndEvent_413" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <dc:Bounds x="870" y="165" width="40" height="40" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="871" y="210" width="41" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Sub_413_di" bpmnElement="Task_Sub_413" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="410" y="275" width="160" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_Start_413_di" bpmnElement="Flow_Start_413">
+        <di:waypoint x="215" y="185" />
+        <di:waypoint x="250" y="185" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_To_G4_di" bpmnElement="Flow_To_G4">
+        <di:waypoint x="410" y="185" />
+        <di:waypoint x="465" y="185" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_HopLe_413_di" bpmnElement="Flow_HopLe_413">
+        <di:waypoint x="515" y="185" />
+        <di:waypoint x="640" y="185" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="555" y="155" width="40" height="30" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_KhongCoSo_413_di" bpmnElement="Flow_KhongCoSo_413">
+        <di:waypoint x="490" y="210" />
+        <di:waypoint x="490" y="275" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="496" y="224" width="79" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Loop_413_di" bpmnElement="Flow_Loop_413">
+        <di:waypoint x="570" y="315" />
+        <di:waypoint x="720" y="315" />
+        <di:waypoint x="720" y="225" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_To_End_413_di" bpmnElement="Flow_To_End_413">
+        <di:waypoint x="805" y="185" />
+        <di:waypoint x="870" y="185" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
+
+//Hình 4.14//
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" id="Definitions_Hinh_4_14" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="18.28.0">
+  <bpmn:collaboration id="Collaboration_414">
+    <bpmn:participant id="Participant_ChuyenMon_414" name="Bộ phận Chuyên môn" processRef="Process_414" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_414" isExecutable="false">
+    <bpmn:startEvent id="StartEvent_414" name="Bắt đầu">
+      <bpmn:outgoing>Flow_Start_414</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Task_Pre_414" name="Đề xuất phương án giải quyết&#10;(15 phút)">
+      <bpmn:incoming>Flow_Start_414</bpmn:incoming>
+      <bpmn:outgoing>Flow_To_G5</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_G5" name="G5: Phương án đúng&#10;chính sách FAHASA?">
+      <bpmn:incoming>Flow_To_G5</bpmn:incoming>
+      <bpmn:outgoing>Flow_Dung_414</bpmn:outgoing>
+      <bpmn:outgoing>Flow_ChuaDat_414</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_Next_414" name="Phê duyệt &#38; chuyển sang CSKH&#10;(5 phút)">
+      <bpmn:incoming>Flow_Dung_414</bpmn:incoming>
+      <bpmn:incoming>Flow_Loop_414</bpmn:incoming>
+      <bpmn:outgoing>Flow_To_End_414</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="EndEvent_414" name="Kết thúc">
+      <bpmn:incoming>Flow_To_End_414</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_Start_414" sourceRef="StartEvent_414" targetRef="Task_Pre_414" />
+    <bpmn:sequenceFlow id="Flow_To_G5" sourceRef="Task_Pre_414" targetRef="Gateway_G5" />
+    <bpmn:sequenceFlow id="Flow_Dung_414" name="Đúng chính sách&#10;(90%)" sourceRef="Gateway_G5" targetRef="Task_Next_414" />
+    <bpmn:sequenceFlow id="Flow_ChuaDat_414" name="Chưa đạt&#10;(10%)" sourceRef="Gateway_G5" targetRef="Task_Sub_414" />
+    <bpmn:sequenceFlow id="Flow_Loop_414" sourceRef="Task_Sub_414" targetRef="Task_Next_414" />
+    <bpmn:sequenceFlow id="Flow_To_End_414" sourceRef="Task_Next_414" targetRef="EndEvent_414" />
+    <bpmn:task id="Task_Sub_414" name="Xem xét &#38; xác minh lại nguyên nhân&#10;(30 phút)">
+      <bpmn:incoming>Flow_ChuaDat_414</bpmn:incoming>
+      <bpmn:outgoing>Flow_Loop_414</bpmn:outgoing>
+    </bpmn:task>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_414">
+    <bpmndi:BPMNPlane id="BPMNPlane_414" bpmnElement="Collaboration_414">
+      <bpmndi:BPMNShape id="Participant_ChuyenMon_414_di" bpmnElement="Participant_ChuyenMon_414" isHorizontal="true">
+        <dc:Bounds x="120" y="80" width="850" height="320" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_414_di" bpmnElement="StartEvent_414" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
+        <dc:Bounds x="175" y="165" width="40" height="40" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="176" y="211" width="38" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Pre_414_di" bpmnElement="Task_Pre_414" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="250" y="145" width="160" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_G5_di" bpmnElement="Gateway_G5" isMarkerVisible="true" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="465" y="160" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="437" y="110" width="106" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Next_414_di" bpmnElement="Task_Next_414" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="640" y="145" width="165" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_414_di" bpmnElement="EndEvent_414" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <dc:Bounds x="870" y="165" width="40" height="40" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="871" y="210" width="41" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Sub_414_di" bpmnElement="Task_Sub_414" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="410" y="275" width="160" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_Start_414_di" bpmnElement="Flow_Start_414">
+        <di:waypoint x="215" y="185" />
+        <di:waypoint x="250" y="185" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_To_G5_di" bpmnElement="Flow_To_G5">
+        <di:waypoint x="410" y="185" />
+        <di:waypoint x="465" y="185" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Dung_414_di" bpmnElement="Flow_Dung_414">
+        <di:waypoint x="515" y="185" />
+        <di:waypoint x="640" y="185" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="535" y="155" width="90" height="30" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ChuaDat_414_di" bpmnElement="Flow_ChuaDat_414">
+        <di:waypoint x="490" y="210" />
+        <di:waypoint x="490" y="275" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="502" y="224" width="46" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Loop_414_di" bpmnElement="Flow_Loop_414">
+        <di:waypoint x="570" y="315" />
+        <di:waypoint x="720" y="315" />
+        <di:waypoint x="720" y="225" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_To_End_414_di" bpmnElement="Flow_To_End_414">
+        <di:waypoint x="805" y="185" />
+        <di:waypoint x="870" y="185" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
+
+//Hình 4.15//
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" id="Definitions_Hinh_4_15" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="18.28.0">
+  <bpmn:collaboration id="Collaboration_415">
+    <bpmn:participant id="Participant_KH_415" name="Khách hàng" processRef="Process_415" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_415" isExecutable="false">
+    <bpmn:startEvent id="StartEvent_415" name="Bắt đầu">
+      <bpmn:outgoing>Flow_Start_415</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Task_Pre_415" name="Tiếp nhận &#38; đánh giá phương án giải quyết&#10;(15 phút)">
+      <bpmn:incoming>Flow_Start_415</bpmn:incoming>
+      <bpmn:outgoing>Flow_To_G6</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_G6" name="G6: Khách hàng đồng ý&#10;phương án?">
+      <bpmn:incoming>Flow_To_G6</bpmn:incoming>
+      <bpmn:outgoing>Flow_DongY_415</bpmn:outgoing>
+      <bpmn:outgoing>Flow_ChuaDongY_415</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_Next_415" name="Xác nhận đồng ý phương án&#10;(5 phút)">
+      <bpmn:incoming>Flow_DongY_415</bpmn:incoming>
+      <bpmn:incoming>Flow_Loop_415</bpmn:incoming>
+      <bpmn:outgoing>Flow_To_End_415</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="EndEvent_415" name="Kết thúc">
+      <bpmn:incoming>Flow_To_End_415</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_Start_415" sourceRef="StartEvent_415" targetRef="Task_Pre_415" />
+    <bpmn:sequenceFlow id="Flow_To_G6" sourceRef="Task_Pre_415" targetRef="Gateway_G6" />
+    <bpmn:sequenceFlow id="Flow_DongY_415" name="Đồng ý&#10;(85%)" sourceRef="Gateway_G6" targetRef="Task_Next_415" />
+    <bpmn:sequenceFlow id="Flow_ChuaDongY_415" name="Chưa đồng ý&#10;(15%)" sourceRef="Gateway_G6" targetRef="Task_Sub_415" />
+    <bpmn:sequenceFlow id="Flow_Loop_415" sourceRef="Task_Sub_415" targetRef="Task_Next_415" />
+    <bpmn:sequenceFlow id="Flow_To_End_415" sourceRef="Task_Next_415" targetRef="EndEvent_415" />
+    <bpmn:task id="Task_Sub_415" name="Phản hồi chưa đồng ý / Đàm phán lại&#10;(10 phút)">
+      <bpmn:incoming>Flow_ChuaDongY_415</bpmn:incoming>
+      <bpmn:outgoing>Flow_Loop_415</bpmn:outgoing>
+    </bpmn:task>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_415">
+    <bpmndi:BPMNPlane id="BPMNPlane_415" bpmnElement="Collaboration_415">
+      <bpmndi:BPMNShape id="Participant_KH_415_di" bpmnElement="Participant_KH_415" isHorizontal="true">
+        <dc:Bounds x="120" y="80" width="850" height="320" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_415_di" bpmnElement="StartEvent_415" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
+        <dc:Bounds x="175" y="165" width="40" height="40" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="176" y="212" width="38" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Pre_415_di" bpmnElement="Task_Pre_415" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="250" y="145" width="160" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_G6_di" bpmnElement="Gateway_G6" isMarkerVisible="true" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="465" y="160" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="432" y="110" width="116" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Next_415_di" bpmnElement="Task_Next_415" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="640" y="145" width="165" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_415_di" bpmnElement="EndEvent_415" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <dc:Bounds x="870" y="165" width="40" height="40" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="871" y="210" width="41" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Sub_415_di" bpmnElement="Task_Sub_415" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="410" y="275" width="160" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_Start_415_di" bpmnElement="Flow_Start_415">
+        <di:waypoint x="215" y="185" />
+        <di:waypoint x="250" y="185" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_To_G6_di" bpmnElement="Flow_To_G6">
+        <di:waypoint x="410" y="185" />
+        <di:waypoint x="465" y="185" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_DongY_415_di" bpmnElement="Flow_DongY_415">
+        <di:waypoint x="515" y="185" />
+        <di:waypoint x="640" y="185" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="555" y="155" width="40" height="30" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ChuaDongY_415_di" bpmnElement="Flow_ChuaDongY_415">
+        <di:waypoint x="490" y="210" />
+        <di:waypoint x="490" y="275" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="498" y="224" width="64" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Loop_415_di" bpmnElement="Flow_Loop_415">
+        <di:waypoint x="570" y="315" />
+        <di:waypoint x="720" y="315" />
+        <di:waypoint x="720" y="225" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_To_End_415_di" bpmnElement="Flow_To_End_415">
+        <di:waypoint x="805" y="185" />
+        <di:waypoint x="870" y="185" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
