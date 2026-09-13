@@ -1,0 +1,626 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" id="Definitions_FAHASA_NoOverlap" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="18.28.0">
+  <bpmn:collaboration id="Collaboration_1">
+    <bpmn:participant id="Participant_Customer" name="Khách hàng" processRef="Process_Customer" />
+    <bpmn:participant id="Participant_FAHASA" name="FAHASA" processRef="Process_FAHASA" />
+    <bpmn:messageFlow id="Msg_1" name="Thông tin đăng ký" sourceRef="Task_CungCapTT" targetRef="Task_HoTroDK" />
+    <bpmn:messageFlow id="Msg_2" name="Yêu cầu bổ sung" sourceRef="Task_ThongBaoLoiDK" targetRef="Task_CungCapTT" />
+    <bpmn:messageFlow id="Msg_3" name="Thông tin mua hàng &#38; thẻ" sourceRef="Task_MuaHang" targetRef="Task_LienKetThanhVien" />
+    <bpmn:messageFlow id="Msg_4" name="Yêu cầu thanh toán" sourceRef="Task_XacNhanTT" targetRef="Task_ThanhToanPOS" />
+    <bpmn:messageFlow id="Msg_5" name="Thông báo điểm tích lũy" sourceRef="Task_CapNhatDiem" targetRef="Task_KiemTraDiem" />
+    <bpmn:messageFlow id="Msg_6" name="Khiếu nại lỗi điểm" sourceRef="Task_KiemTraDiem" targetRef="Task_HoTroCSKH" />
+    <bpmn:messageFlow id="Msg_7" name="Kết quả giải quyết" sourceRef="Task_HoTroCSKH" targetRef="Task_KiemTraDiem" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_Customer" isExecutable="false">
+    <bpmn:startEvent id="Start_Customer" name="Bắt đầu">
+      <bpmn:outgoing>Flow_C1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:exclusiveGateway id="Gateway_HasAccount" name="Đã có tài khoản&#10;thành viên?">
+      <bpmn:incoming>Flow_C1</bpmn:incoming>
+      <bpmn:outgoing>Flow_HasAcc_No</bpmn:outgoing>
+      <bpmn:outgoing>Flow_HasAcc_Yes</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_CungCapTT" name="Đăng ký / Cung cấp&#10;thông tin cá nhân">
+      <bpmn:incoming>Flow_HasAcc_No</bpmn:incoming>
+      <bpmn:outgoing>Flow_C2</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_MergeCustomer">
+      <bpmn:incoming>Flow_HasAcc_Yes</bpmn:incoming>
+      <bpmn:incoming>Flow_C2</bpmn:incoming>
+      <bpmn:outgoing>Flow_C3</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_MuaHang" name="Mua hàng &#38; Yêu cầu&#10;dùng quyền lợi">
+      <bpmn:incoming>Flow_C3</bpmn:incoming>
+      <bpmn:outgoing>Flow_C4</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_XacNhanTT" name="Xác nhận thanh toán">
+      <bpmn:incoming>Flow_C4</bpmn:incoming>
+      <bpmn:outgoing>Flow_C5</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_KiemTraDiem" name="Kiểm tra thông tin&#10;điểm &#38; Nhận hàng">
+      <bpmn:incoming>Flow_C5</bpmn:incoming>
+      <bpmn:outgoing>Flow_C6</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="End_Customer" name="Hoàn tất">
+      <bpmn:incoming>Flow_C6</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_C1" sourceRef="Start_Customer" targetRef="Gateway_HasAccount" />
+    <bpmn:sequenceFlow id="Flow_HasAcc_No" name="Chưa" sourceRef="Gateway_HasAccount" targetRef="Task_CungCapTT" />
+    <bpmn:sequenceFlow id="Flow_HasAcc_Yes" name="Đã có" sourceRef="Gateway_HasAccount" targetRef="Gateway_MergeCustomer" />
+    <bpmn:sequenceFlow id="Flow_C2" sourceRef="Task_CungCapTT" targetRef="Gateway_MergeCustomer" />
+    <bpmn:sequenceFlow id="Flow_C3" sourceRef="Gateway_MergeCustomer" targetRef="Task_MuaHang" />
+    <bpmn:sequenceFlow id="Flow_C4" sourceRef="Task_MuaHang" targetRef="Task_XacNhanTT" />
+    <bpmn:sequenceFlow id="Flow_C5" sourceRef="Task_XacNhanTT" targetRef="Task_KiemTraDiem" />
+    <bpmn:sequenceFlow id="Flow_C6" sourceRef="Task_KiemTraDiem" targetRef="End_Customer" />
+  </bpmn:process>
+  <bpmn:process id="Process_FAHASA" isExecutable="false">
+    <bpmn:laneSet id="LaneSet_FAHASA">
+      <bpmn:lane id="Lane_Cashier" name="Nhân viên bán hàng / Thu ngân">
+        <bpmn:flowNodeRef>Task_HoTroDK</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_LienKetThanhVien</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_ApDungQuyenLoi</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_POS" name="Hệ thống bán hàng (POS)">
+        <bpmn:flowNodeRef>Task_ThanhToanPOS</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_GDThanhCong</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>End_GDThatBai</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_DongBoDuLieu</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Warehouse" name="Nhân viên kho">
+        <bpmn:flowNodeRef>Task_KiemTraDongGoi</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_LoyaltySys" name="Hệ thống quản lý thành viên">
+        <bpmn:flowNodeRef>Gateway_MergeDK</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_KiemTraDK</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_TTHopLe</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_ThongBaoLoiDK</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_KHExist</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_CapNhatTK</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_TaoTK</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_MergeAcc</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_DuDKTichDiem</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_TinhDiem</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_GhiNhan0Diem</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_MergeTinhDiem</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_CapNhatDiem</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_DiemSuccess</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>End_HTSuccess</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_CSKH" name="Bộ phận chăm sóc khách hàng">
+        <bpmn:flowNodeRef>Task_HoTroCSKH</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:task id="Task_HoTroDK" name="Hỗ trợ tiếp nhận&#10;thông tin đăng ký">
+      <bpmn:outgoing>Flow_F1</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_MergeDK">
+      <bpmn:incoming>Flow_F1</bpmn:incoming>
+      <bpmn:incoming>Flow_Loop_DK</bpmn:incoming>
+      <bpmn:outgoing>Flow_F2</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_KiemTraDK" name="Kiểm tra dữ liệu&#10;đăng ký">
+      <bpmn:incoming>Flow_F2</bpmn:incoming>
+      <bpmn:outgoing>Flow_F3</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_TTHopLe" name="Thông tin đăng ký&#10;hợp lệ?">
+      <bpmn:incoming>Flow_F3</bpmn:incoming>
+      <bpmn:outgoing>Flow_HopLe_Yes</bpmn:outgoing>
+      <bpmn:outgoing>Flow_HopLe_No</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_ThongBaoLoiDK" name="Thông báo lỗi &#38;&#10;Yêu cầu bổ sung">
+      <bpmn:incoming>Flow_HopLe_No</bpmn:incoming>
+      <bpmn:outgoing>Flow_Loop_DK</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_KHExist" name="Khách hàng&#10;đã tồn tại?">
+      <bpmn:incoming>Flow_HopLe_Yes</bpmn:incoming>
+      <bpmn:outgoing>Flow_Exist_Yes</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Exist_No</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_CapNhatTK" name="Cập nhật tài&#10;khoản cũ">
+      <bpmn:incoming>Flow_Exist_Yes</bpmn:incoming>
+      <bpmn:outgoing>Flow_MergeAcc1</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_TaoTK" name="Tạo tài khoản&#10;thành viên mới">
+      <bpmn:incoming>Flow_Exist_No</bpmn:incoming>
+      <bpmn:outgoing>Flow_MergeAcc2</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_MergeAcc">
+      <bpmn:incoming>Flow_MergeAcc1</bpmn:incoming>
+      <bpmn:incoming>Flow_MergeAcc2</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToLienKet</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_LienKetThanhVien" name="Liên kết tài khoản&#10;thành viên với đơn">
+      <bpmn:incoming>Flow_ToLienKet</bpmn:incoming>
+      <bpmn:outgoing>Flow_F4</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_ApDungQuyenLoi" name="Kiểm tra &#38; Áp dụng&#10;chiết khấu / đổi điểm">
+      <bpmn:incoming>Flow_F4</bpmn:incoming>
+      <bpmn:outgoing>Flow_F5</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_ThanhToanPOS" name="Xử lý giao dịch&#10;thanh toán (POS)">
+      <bpmn:incoming>Flow_F5</bpmn:incoming>
+      <bpmn:outgoing>Flow_F6</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_GDThanhCong" name="Giao dịch thanh toán&#10;thành công?">
+      <bpmn:incoming>Flow_F6</bpmn:incoming>
+      <bpmn:outgoing>Flow_GD_Success</bpmn:outgoing>
+      <bpmn:outgoing>Flow_GD_Fail</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="End_GDThatBai" name="Hủy giao dịch">
+      <bpmn:incoming>Flow_GD_Fail</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:task id="Task_DongBoDuLieu" name="In hóa đơn &#38; Gửi dữ&#10;liệu sang HT thành viên">
+      <bpmn:incoming>Flow_GD_Success</bpmn:incoming>
+      <bpmn:outgoing>Flow_F7</bpmn:outgoing>
+      <bpmn:outgoing>Flow_F7_Kho</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_DuDKTichDiem" name="Đơn hàng đủ điều&#10;kiện tích điểm?">
+      <bpmn:incoming>Flow_F7</bpmn:incoming>
+      <bpmn:outgoing>Flow_TichDiem_Yes</bpmn:outgoing>
+      <bpmn:outgoing>Flow_TichDiem_No</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_TinhDiem" name="Tính điểm tích lũy&#10;F-Point theo chính sách">
+      <bpmn:incoming>Flow_TichDiem_Yes</bpmn:incoming>
+      <bpmn:outgoing>Flow_MergeTD1</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_GhiNhan0Diem" name="Ghi nhận 0 điểm&#10;tích lũy">
+      <bpmn:incoming>Flow_TichDiem_No</bpmn:incoming>
+      <bpmn:outgoing>Flow_MergeTD2</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_MergeTinhDiem">
+      <bpmn:incoming>Flow_MergeTD1</bpmn:incoming>
+      <bpmn:incoming>Flow_MergeTD2</bpmn:incoming>
+      <bpmn:outgoing>Flow_F8</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_CapNhatDiem" name="Cập nhật điểm tích lũy&#10;vào ví thành viên">
+      <bpmn:incoming>Flow_F8</bpmn:incoming>
+      <bpmn:outgoing>Flow_F9</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_DiemSuccess" name="Điểm tích lũy cập&#10;nhật thành công?">
+      <bpmn:incoming>Flow_F9</bpmn:incoming>
+      <bpmn:outgoing>Flow_Diem_Yes</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Diem_No</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_HoTroCSKH" name="Tiếp nhận, kiểm tra &#38;&#10;Điều chỉnh điểm">
+      <bpmn:incoming>Flow_Diem_No</bpmn:incoming>
+      <bpmn:outgoing>Flow_CSKH_End</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="End_HTSuccess" name="Hoàn tất quy trình">
+      <bpmn:incoming>Flow_Diem_Yes</bpmn:incoming>
+      <bpmn:incoming>Flow_CSKH_End</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_F1" sourceRef="Task_HoTroDK" targetRef="Gateway_MergeDK" />
+    <bpmn:sequenceFlow id="Flow_Loop_DK" sourceRef="Task_ThongBaoLoiDK" targetRef="Gateway_MergeDK" />
+    <bpmn:sequenceFlow id="Flow_F2" sourceRef="Gateway_MergeDK" targetRef="Task_KiemTraDK" />
+    <bpmn:sequenceFlow id="Flow_F3" sourceRef="Task_KiemTraDK" targetRef="Gateway_TTHopLe" />
+    <bpmn:sequenceFlow id="Flow_HopLe_Yes" name="Hợp lệ" sourceRef="Gateway_TTHopLe" targetRef="Gateway_KHExist" />
+    <bpmn:sequenceFlow id="Flow_HopLe_No" name="Không hợp lệ" sourceRef="Gateway_TTHopLe" targetRef="Task_ThongBaoLoiDK" />
+    <bpmn:sequenceFlow id="Flow_Exist_Yes" name="Đã tồn tại" sourceRef="Gateway_KHExist" targetRef="Task_CapNhatTK" />
+    <bpmn:sequenceFlow id="Flow_Exist_No" name="Chưa có" sourceRef="Gateway_KHExist" targetRef="Task_TaoTK" />
+    <bpmn:sequenceFlow id="Flow_MergeAcc1" sourceRef="Task_CapNhatTK" targetRef="Gateway_MergeAcc" />
+    <bpmn:sequenceFlow id="Flow_MergeAcc2" sourceRef="Task_TaoTK" targetRef="Gateway_MergeAcc" />
+    <bpmn:sequenceFlow id="Flow_ToLienKet" sourceRef="Gateway_MergeAcc" targetRef="Task_LienKetThanhVien" />
+    <bpmn:sequenceFlow id="Flow_F4" sourceRef="Task_LienKetThanhVien" targetRef="Task_ApDungQuyenLoi" />
+    <bpmn:sequenceFlow id="Flow_F5" sourceRef="Task_ApDungQuyenLoi" targetRef="Task_ThanhToanPOS" />
+    <bpmn:sequenceFlow id="Flow_F6" sourceRef="Task_ThanhToanPOS" targetRef="Gateway_GDThanhCong" />
+    <bpmn:sequenceFlow id="Flow_GD_Success" name="Thành công" sourceRef="Gateway_GDThanhCong" targetRef="Task_DongBoDuLieu" />
+    <bpmn:sequenceFlow id="Flow_GD_Fail" name="Thất bại" sourceRef="Gateway_GDThanhCong" targetRef="End_GDThatBai" />
+    <bpmn:sequenceFlow id="Flow_F7" sourceRef="Task_DongBoDuLieu" targetRef="Gateway_DuDKTichDiem" />
+    <bpmn:sequenceFlow id="Flow_F7_Kho" sourceRef="Task_DongBoDuLieu" targetRef="Task_KiemTraDongGoi" />
+    <bpmn:sequenceFlow id="Flow_TichDiem_Yes" name="Đủ" sourceRef="Gateway_DuDKTichDiem" targetRef="Task_TinhDiem" />
+    <bpmn:sequenceFlow id="Flow_TichDiem_No" name="Không đủ" sourceRef="Gateway_DuDKTichDiem" targetRef="Task_GhiNhan0Diem" />
+    <bpmn:sequenceFlow id="Flow_MergeTD1" sourceRef="Task_TinhDiem" targetRef="Gateway_MergeTinhDiem" />
+    <bpmn:sequenceFlow id="Flow_MergeTD2" sourceRef="Task_GhiNhan0Diem" targetRef="Gateway_MergeTinhDiem" />
+    <bpmn:sequenceFlow id="Flow_F8" sourceRef="Gateway_MergeTinhDiem" targetRef="Task_CapNhatDiem" />
+    <bpmn:sequenceFlow id="Flow_F9" sourceRef="Task_CapNhatDiem" targetRef="Gateway_DiemSuccess" />
+    <bpmn:sequenceFlow id="Flow_Diem_Yes" name="Thành công" sourceRef="Gateway_DiemSuccess" targetRef="End_HTSuccess" />
+    <bpmn:sequenceFlow id="Flow_Diem_No" name="Phát sinh lỗi" sourceRef="Gateway_DiemSuccess" targetRef="Task_HoTroCSKH" />
+    <bpmn:sequenceFlow id="Flow_CSKH_End" sourceRef="Task_HoTroCSKH" targetRef="End_HTSuccess" />
+    <bpmn:task id="Task_KiemTraDongGoi" name="Lấy hàng, kiểm tra,&#10;đóng gói &#38; Bàn giao">
+      <bpmn:incoming>Flow_F7_Kho</bpmn:incoming>
+    </bpmn:task>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_FAHASA">
+    <bpmndi:BPMNPlane id="BPMNPlane_FAHASA" bpmnElement="Collaboration_1">
+      <bpmndi:BPMNShape id="Participant_Customer_di" bpmnElement="Participant_Customer" isHorizontal="true">
+        <dc:Bounds x="160" y="40" width="2400" height="180" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Start_Customer_di" bpmnElement="Start_Customer" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
+        <dc:Bounds x="210" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="209" y="145" width="38" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_HasAccount_di" bpmnElement="Gateway_HasAccount" isMarkerVisible="true" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="280" y="95" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="267" y="148" width="77" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_CungCapTT_di" bpmnElement="Task_CungCapTT" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="380" y="85" width="130" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_MergeCustomer_di" bpmnElement="Gateway_MergeCustomer" isMarkerVisible="true" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="550" y="95" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_MuaHang_di" bpmnElement="Task_MuaHang" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="640" y="85" width="130" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_XacNhanTT_di" bpmnElement="Task_XacNhanTT" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="1100" y="85" width="130" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_KiemTraDiem_di" bpmnElement="Task_KiemTraDiem" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="2070" y="85" width="140" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_Customer_di" bpmnElement="End_Customer" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <dc:Bounds x="2290" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2288" y="145" width="42" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_C1_di" bpmnElement="Flow_C1">
+        <di:waypoint x="246" y="120" />
+        <di:waypoint x="280" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_HasAcc_No_di" bpmnElement="Flow_HasAcc_No">
+        <di:waypoint x="330" y="120" />
+        <di:waypoint x="380" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="340" y="102" width="28" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_HasAcc_Yes_di" bpmnElement="Flow_HasAcc_Yes">
+        <di:waypoint x="305" y="95" />
+        <di:waypoint x="305" y="65" />
+        <di:waypoint x="575" y="65" />
+        <di:waypoint x="575" y="95" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="315" y="73" width="31" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_C2_di" bpmnElement="Flow_C2">
+        <di:waypoint x="510" y="120" />
+        <di:waypoint x="550" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_C3_di" bpmnElement="Flow_C3">
+        <di:waypoint x="600" y="120" />
+        <di:waypoint x="640" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_C4_di" bpmnElement="Flow_C4">
+        <di:waypoint x="770" y="120" />
+        <di:waypoint x="1100" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_C5_di" bpmnElement="Flow_C5">
+        <di:waypoint x="1230" y="120" />
+        <di:waypoint x="2070" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_C6_di" bpmnElement="Flow_C6">
+        <di:waypoint x="2210" y="120" />
+        <di:waypoint x="2290" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Participant_FAHASA_di" bpmnElement="Participant_FAHASA" isHorizontal="true">
+        <dc:Bounds x="160" y="270" width="2410" height="850" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_CSKH_di" bpmnElement="Lane_CSKH" isHorizontal="true">
+        <dc:Bounds x="190" y="970" width="2380" height="150" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_LoyaltySys_di" bpmnElement="Lane_LoyaltySys" isHorizontal="true">
+        <dc:Bounds x="190" y="750" width="2380" height="220" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Warehouse_di" bpmnElement="Lane_Warehouse" isHorizontal="true">
+        <dc:Bounds x="190" y="620" width="2380" height="130" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_POS_di" bpmnElement="Lane_POS" isHorizontal="true">
+        <dc:Bounds x="190" y="420" width="2380" height="200" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Cashier_di" bpmnElement="Lane_Cashier" isHorizontal="true">
+        <dc:Bounds x="190" y="270" width="2380" height="150" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_HoTroDK_di" bpmnElement="Task_HoTroDK" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="380" y="310" width="130" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_MergeDK_di" bpmnElement="Gateway_MergeDK" isMarkerVisible="true" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="260" y="815" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_KiemTraDK_di" bpmnElement="Task_KiemTraDK" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="340" y="805" width="120" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_TTHopLe_di" bpmnElement="Gateway_TTHopLe" isMarkerVisible="true" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="485" y="815" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="466" y="770" width="88" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ThongBaoLoiDK_di" bpmnElement="Task_ThongBaoLoiDK" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="450" y="895" width="120" height="55" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_KHExist_di" bpmnElement="Gateway_KHExist" isMarkerVisible="true" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="620" y="815" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="675" y="836" width="59" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_CapNhatTK_di" bpmnElement="Task_CapNhatTK" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="730" y="765" width="120" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_TaoTK_di" bpmnElement="Task_TaoTK" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="730" y="870" width="120" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_MergeAcc_di" bpmnElement="Gateway_MergeAcc" isMarkerVisible="true" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="895" y="815" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_LienKetThanhVien_di" bpmnElement="Task_LienKetThanhVien" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="890" y="310" width="130" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ApDungQuyenLoi_di" bpmnElement="Task_ApDungQuyenLoi" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="1050" y="310" width="130" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ThanhToanPOS_di" bpmnElement="Task_ThanhToanPOS" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="1100" y="460" width="130" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_GDThanhCong_di" bpmnElement="Gateway_GDThanhCong" isMarkerVisible="true" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="1275" y="470" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1261" y="425" width="78" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_GDThatBai_di" bpmnElement="End_GDThatBai" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <dc:Bounds x="1282" y="555" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1267" y="595" width="67" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_DongBoDuLieu_di" bpmnElement="Task_DongBoDuLieu" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="1380" y="460" width="140" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_DuDKTichDiem_di" bpmnElement="Gateway_DuDKTichDiem" isMarkerVisible="true" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="1510" y="815" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1426" y="856" width="88" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_TinhDiem_di" bpmnElement="Task_TinhDiem" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="1630" y="765" width="130" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_GhiNhan0Diem_di" bpmnElement="Task_GhiNhan0Diem" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="1630" y="870" width="130" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_MergeTinhDiem_di" bpmnElement="Gateway_MergeTinhDiem" isMarkerVisible="true" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="1810" y="815" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_CapNhatDiem_di" bpmnElement="Task_CapNhatDiem" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="1900" y="805" width="130" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_DiemSuccess_di" bpmnElement="Gateway_DiemSuccess" isMarkerVisible="true" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="2090" y="815" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2047" y="786" width="86" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_HoTroCSKH_di" bpmnElement="Task_HoTroCSKH" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="2050" y="1010" width="130" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_HTSuccess_di" bpmnElement="End_HTSuccess" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <dc:Bounds x="2270" y="822" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2236" y="793" width="88" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_KiemTraDongGoi_di" bpmnElement="Task_KiemTraDongGoi" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="1440" y="645" width="140" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_F1_di" bpmnElement="Flow_F1">
+        <di:waypoint x="380" y="345" />
+        <di:waypoint x="285" y="345" />
+        <di:waypoint x="285" y="815" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Loop_DK_di" bpmnElement="Flow_Loop_DK">
+        <di:waypoint x="450" y="922" />
+        <di:waypoint x="285" y="922" />
+        <di:waypoint x="285" y="865" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_F2_di" bpmnElement="Flow_F2">
+        <di:waypoint x="310" y="840" />
+        <di:waypoint x="340" y="840" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_F3_di" bpmnElement="Flow_F3">
+        <di:waypoint x="460" y="840" />
+        <di:waypoint x="485" y="840" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_HopLe_Yes_di" bpmnElement="Flow_HopLe_Yes">
+        <di:waypoint x="535" y="840" />
+        <di:waypoint x="620" y="840" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="555" y="822" width="34" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_HopLe_No_di" bpmnElement="Flow_HopLe_No">
+        <di:waypoint x="510" y="865" />
+        <di:waypoint x="510" y="895" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="515" y="873" width="67" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Exist_Yes_di" bpmnElement="Flow_Exist_Yes">
+        <di:waypoint x="645" y="815" />
+        <di:waypoint x="645" y="795" />
+        <di:waypoint x="730" y="795" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="655" y="777" width="48" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Exist_No_di" bpmnElement="Flow_Exist_No">
+        <di:waypoint x="645" y="865" />
+        <di:waypoint x="645" y="900" />
+        <di:waypoint x="730" y="900" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="655" y="883" width="43" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_MergeAcc1_di" bpmnElement="Flow_MergeAcc1">
+        <di:waypoint x="850" y="795" />
+        <di:waypoint x="920" y="795" />
+        <di:waypoint x="920" y="815" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_MergeAcc2_di" bpmnElement="Flow_MergeAcc2">
+        <di:waypoint x="850" y="900" />
+        <di:waypoint x="920" y="900" />
+        <di:waypoint x="920" y="865" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ToLienKet_di" bpmnElement="Flow_ToLienKet">
+        <di:waypoint x="945" y="840" />
+        <di:waypoint x="955" y="840" />
+        <di:waypoint x="955" y="380" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_F4_di" bpmnElement="Flow_F4">
+        <di:waypoint x="1020" y="345" />
+        <di:waypoint x="1050" y="345" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_F5_di" bpmnElement="Flow_F5">
+        <di:waypoint x="1115" y="380" />
+        <di:waypoint x="1115" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_F6_di" bpmnElement="Flow_F6">
+        <di:waypoint x="1230" y="495" />
+        <di:waypoint x="1275" y="495" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GD_Success_di" bpmnElement="Flow_GD_Success">
+        <di:waypoint x="1325" y="495" />
+        <di:waypoint x="1380" y="495" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1324" y="477" width="58" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GD_Fail_di" bpmnElement="Flow_GD_Fail">
+        <di:waypoint x="1300" y="520" />
+        <di:waypoint x="1300" y="555" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1305" y="530" width="41" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_F7_di" bpmnElement="Flow_F7">
+        <di:waypoint x="1400" y="530" />
+        <di:waypoint x="1400" y="840" />
+        <di:waypoint x="1510" y="840" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_F7_Kho_di" bpmnElement="Flow_F7_Kho">
+        <di:waypoint x="1450" y="530" />
+        <di:waypoint x="1450" y="588" />
+        <di:waypoint x="1510" y="588" />
+        <di:waypoint x="1510" y="645" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_TichDiem_Yes_di" bpmnElement="Flow_TichDiem_Yes">
+        <di:waypoint x="1535" y="815" />
+        <di:waypoint x="1535" y="795" />
+        <di:waypoint x="1630" y="795" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1565" y="777" width="15" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_TichDiem_No_di" bpmnElement="Flow_TichDiem_No">
+        <di:waypoint x="1535" y="865" />
+        <di:waypoint x="1535" y="900" />
+        <di:waypoint x="1630" y="900" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1550" y="883" width="47" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_MergeTD1_di" bpmnElement="Flow_MergeTD1">
+        <di:waypoint x="1760" y="795" />
+        <di:waypoint x="1835" y="795" />
+        <di:waypoint x="1835" y="815" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_MergeTD2_di" bpmnElement="Flow_MergeTD2">
+        <di:waypoint x="1760" y="900" />
+        <di:waypoint x="1835" y="900" />
+        <di:waypoint x="1835" y="865" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_F8_di" bpmnElement="Flow_F8">
+        <di:waypoint x="1860" y="840" />
+        <di:waypoint x="1900" y="840" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_F9_di" bpmnElement="Flow_F9">
+        <di:waypoint x="2030" y="840" />
+        <di:waypoint x="2090" y="840" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Diem_Yes_di" bpmnElement="Flow_Diem_Yes">
+        <di:waypoint x="2140" y="840" />
+        <di:waypoint x="2270" y="840" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2175" y="822" width="58" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Diem_No_di" bpmnElement="Flow_Diem_No">
+        <di:waypoint x="2115" y="865" />
+        <di:waypoint x="2115" y="1010" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2150" y="923" width="60" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_CSKH_End_di" bpmnElement="Flow_CSKH_End">
+        <di:waypoint x="2180" y="1045" />
+        <di:waypoint x="2288" y="1045" />
+        <di:waypoint x="2288" y="858" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Msg_1_di" bpmnElement="Msg_1">
+        <di:waypoint x="445" y="155" />
+        <di:waypoint x="445" y="310" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="456" y="235" width="88" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Msg_2_di" bpmnElement="Msg_2">
+        <di:waypoint x="450" y="930" />
+        <di:waypoint x="230" y="930" />
+        <di:waypoint x="230" y="240" />
+        <di:waypoint x="410" y="240" />
+        <di:waypoint x="410" y="155" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="240" y="245" width="82" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Msg_3_di" bpmnElement="Msg_3">
+        <di:waypoint x="705" y="155" />
+        <di:waypoint x="705" y="345" />
+        <di:waypoint x="890" y="345" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="720" y="225" width="80" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Msg_4_di" bpmnElement="Msg_4">
+        <di:waypoint x="1200" y="155" />
+        <di:waypoint x="1200" y="460" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1203" y="237" width="71" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Msg_5_di" bpmnElement="Msg_5">
+        <di:waypoint x="1965" y="805" />
+        <di:waypoint x="1965" y="240" />
+        <di:waypoint x="2090" y="240" />
+        <di:waypoint x="2090" y="155" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1890" y="480" width="67" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Msg_6_di" bpmnElement="Msg_6">
+        <di:waypoint x="2140" y="155" />
+        <di:waypoint x="2140" y="600" />
+        <di:waypoint x="2140" y="1010" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2145" y="520" width="86" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Msg_7_di" bpmnElement="Msg_7">
+        <di:waypoint x="2180" y="1060" />
+        <di:waypoint x="2380" y="1060" />
+        <di:waypoint x="2380" y="240" />
+        <di:waypoint x="2180" y="240" />
+        <di:waypoint x="2180" y="155" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2390" y="480" width="88" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
